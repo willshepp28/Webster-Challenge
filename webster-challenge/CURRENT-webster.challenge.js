@@ -21,7 +21,7 @@ let _state = {
     let data = [];
 
     while(d = regex.exec(_state.fileToString)) {
-        if(d[0] === "THE FULL PROJECT GUTENBERG LICENSE") { break;}
+        if(d[0] === "THE FULL PROJECT GUTENBERG LICENSE") { break;} // temporary solution for regex capturing unnecessary text at the end of file 
         data.push({word: d[0], index: d.index});
     }
     return data;

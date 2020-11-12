@@ -21,7 +21,7 @@ let _state = {
     let data = [];
 
     while(d = regex.exec(_state.fileToString)) {
-        // if(d[0] === "THE FULL PROJECT GUTENBERG LICENSE") { break;}
+        if(d[0] === "THE FULL PROJECT GUTENBERG LICENSE") { break;}
         data.push({word: d[0], index: d.index});
     }
     return data;

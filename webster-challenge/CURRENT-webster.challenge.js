@@ -6,7 +6,7 @@ let fs = require("fs");
 let filename = "./w.txt";
 
 
-// Object which will keep up with the state
+// Object which will hold the state of this application.
 let _state = {
     fileToString: fs.readFileSync(filename).toString(),
     words: [],
@@ -28,7 +28,14 @@ let _state = {
 }
 
 
-// Get a position of the string based on the index of the word
+/**
+ * 
+ * Get a position of the string based on the index of the word
+ * 
+ * We use the index of each word in our _state.words array to get the corresponding section in the string that belongs to each word (defintion, description, example, ect)
+ * getSectionOfStringWithIndex() uses the _state.words.index as a starting position, and the index of the following word in _state.words as a stopping position.
+ * Once we have the section we then can use our  getDefinition, getDescription, and getDisambiguation to get the properties we need for our csv file.
+ */
 function getSectionOfStringWithIndex(index){
     if(!index) return;
 
@@ -101,7 +108,12 @@ function getDefintionByName(word){
 
 
 
-
+/**\
+ * 
+ * 1. Initialize _state.words with all the words 
+ * 2. Adds the words, definition, description, and disambiguation to the _state.dataToExport array
+ * 3. Create CSV file and populate it with the results of _state.dataToExport
+ */
 function Build(){
     _state.words = getAllWords();
     addDefinitionsAndWordsToExportArray();

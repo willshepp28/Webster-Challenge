@@ -70,13 +70,13 @@ function getDescription(section){
 function addDefinitionsAndWordsToExportArray() {
     if(_state.words.length === 0)return;
 
-    for(let i = 0; i < _state.words.length - 1; i++) {
-        let currentSection = getSectionOfStringWithIndex(i);
+    for(let index = 0; index < _state.words.length - 1; index++) {
+        let currentSection = getSectionOfStringWithIndex(index);
         let definition = getDefinition(currentSection); 
         let description = getDescription(currentSection);
         let disambiguation = getDisambiguation(currentSection);
         
-        _state.dataToExport.push({ word: _state.words[i].word, definition: definition, disambiguation: disambiguation, description: description})
+        _state.dataToExport.push({ word: _state.words[index].word, definition: definition, disambiguation: disambiguation, description: description})
     }
 }
 
@@ -93,10 +93,7 @@ function getDefintionByName(word){
     _state.words.forEach((w,index)=> {
         if(w.word === word) {
             let sec = getSectionOfStringWithIndex(index);
-            console.log(sec)
             let def = getDefinition(sec)
-    
-            console.log(def)
         }
     });
 };
@@ -107,7 +104,6 @@ function getDefintionByName(word){
 
 function Build(){
     _state.words = getAllWords();
-    console.log(_state.words)
     addDefinitionsAndWordsToExportArray();
      addDataToCSV(_state.dataToExport);
     

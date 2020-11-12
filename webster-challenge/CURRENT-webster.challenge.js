@@ -107,10 +107,12 @@ function getDefintionByName(word){
 
 function Build(){
     _state.words = getAllWords();
+    console.log(_state.words)
     addDefinitionsAndWordsToExportArray();
      addDataToCSV(_state.dataToExport);
     
 }
+
 
 Build();
 

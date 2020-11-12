@@ -3,7 +3,7 @@
 
 let addDataToCSV = require("../csv.writer");
 let fs = require("fs");
-let filename = "./webster.txt";
+let filename = "./w.txt";
 
 
 // Object which will keep up with the state
@@ -21,8 +21,8 @@ let _state = {
     let data = [];
 
     while(d = regex.exec(_state.fileToString)) {
-        if(d[0] === "THE FULL PROJECT GUTENBERG LICENSE") { break;}
-        data.push({word: d[0], index: d.index, wordLength: d[0].length});
+        // if(d[0] === "THE FULL PROJECT GUTENBERG LICENSE") { break;}
+        data.push({word: d[0], index: d.index});
     }
     return data;
 }
@@ -39,7 +39,7 @@ function getSectionOfStringWithIndex(index){
     } else {
         end = _state.words[index+1].index;
     }
-    // let end = words[index+1].index || words.length - 1;
+    
     let str2 = "";
 
     for(let i = start; i < end; i++) {
@@ -49,7 +49,7 @@ function getSectionOfStringWithIndex(index){
 }
 
 
-// Search the string; Get the definition; push to array
+// Search the string and gets the definition
 function getDefinition(section){
     if(!section)return;
 
@@ -57,7 +57,7 @@ function getDefinition(section){
 }
 
 
-// Search the string; Get the description; push to array
+// Search the string and gets the description; 
 function getDescription(section){
     if(!section)return;
         
@@ -66,8 +66,10 @@ function getDescription(section){
 
 
 
-// Finds the definition that corresponds with each word, then adds to array
+// Gets the word, definition, description, disambiguation and add it to the dataToExport array, which is used to populate our csv file.
 function addDefinitionsAndWordsToExportArray() {
+    if(_state.words.length === 0)return;
+
     for(let i = 0; i < _state.words.length - 1; i++) {
         let currentSection = getSectionOfStringWithIndex(i);
         let definition = getDefinition(currentSection); 
@@ -88,10 +90,11 @@ function getDisambiguation(section){
 
 // Gets defintion by name (for testing purposes)
 function getDefintionByName(word){
-    words.forEach((w,index)=> {
+    _state.words.forEach((w,index)=> {
         if(w.word === word) {
             let sec = getSectionOfStringWithIndex(index);
-            let def = getDefintion(sec)
+            console.log(sec)
+            let def = getDefinition(sec)
     
             console.log(def)
         }
@@ -110,7 +113,6 @@ function Build(){
 }
 
 Build();
-
 
 
 
